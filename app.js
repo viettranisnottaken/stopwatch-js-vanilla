@@ -2,6 +2,7 @@
 // setInterval(function, milliseconds, param1, param2, ...)
 // setTimeout(function, milliseconds, param1, param2, ...)
 // document.getElementById("clickMe").onclick = doFunction;
+// getAttrubute
 
 var stopwatch = document.getElementById("stopwatch");
 var start = document.getElementById("start");
@@ -25,21 +26,27 @@ var millisecondsToHms = function(millisec) {
 var inputTime = 0;
 var running; 
 
-var startTimer = function() {
+var startTimer = function(e) {
   running = true;
   hideButton();
 
-  return (tInterval = setInterval(function() {
+  const tInterval = setInterval(function() {
     inputTime = inputTime + 1;
     stopwatch.innerHTML = millisecondsToHms(inputTime);
-  }, 10)); 
+  }, 10);
+  
+  e.target.setAttribute("data-intervalID", tInterval);
+  return tInterval;
 };
 
 var pauseTimer = function() {
   running = false;
   start.innerHTML = "Resume";
   hideButton();
-  return clearInterval(tInterval);
+
+  var intervalId = start.getAttribute("data-intervalId");
+
+  return clearInterval(intervalId);
 }
 
 var hideButton = function() {
@@ -58,7 +65,10 @@ var resetTimer = function() {
   inputTime = 0;
   stopwatch.innerHTML = millisecondsToHms(inputTime)
   start.innerHTML = "Start"
-  return clearInterval(tInterval);
+
+  var invervalId = start.getAttribute("data-intervalId")
+
+  return clearInterval(invervalId);
 }
 
 start.onclick = startTimer;
