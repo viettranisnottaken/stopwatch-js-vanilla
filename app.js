@@ -10,8 +10,8 @@ var reset = document.getElementById("reset");
 
 var millisecondsToHms = function(millisec) {
   millisec = Number(millisec);
-  var h = Math.floor((millisec / 100) / 3600);
-  var m = Math.floor(millisec % (3600 * 100) / 6000);
+  var h = Math.floor(millisec / 100 / 3600);
+  var m = Math.floor(millisec / 100 / 60 % 60);
   var s = Math.floor(millisec / 100 % 60);
   var ms = Math.floor(millisec % 100);
 
