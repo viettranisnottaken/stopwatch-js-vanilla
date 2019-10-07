@@ -16,10 +16,10 @@ var millisecondsToHms = function(millisec) {
   var ms = Math.floor(millisec % 100);
 
   function displayTime(unit) {
-    return unit < 10 ? "0" + unit : unit
+    return unit < 10 ? `0${unit}` : unit
   };
 
-  return displayTime(h) + ":" + displayTime(m) + ":" + displayTime(s) + "." + displayTime(ms);
+  return `${displayTime(h)}:${displayTime(m)}:${displayTime(s)}.${displayTime(ms)}`;
 }
 
 var inputTime = 0;
