@@ -8,17 +8,18 @@ var start = document.getElementById("start");
 var pause = document.getElementById("pause");
 var reset = document.getElementById("reset");
 
-var secondsToHms = function(millisec) {
+var millisecondsToHms = function(millisec) {
   millisec = Number(millisec);
-  var h = Math.floor(millisec / 3600);
-  var m = Math.floor(millisec % 3600 / 60);
-  var s = Math.floor(millisec % 3600 % 60);
+  var h = Math.floor((millisec / 100) / 3600);
+  var m = Math.floor(millisec % (3600 * 100) / 6000);
+  var s = Math.floor(millisec / 100 % 60);
+  var ms = Math.floor(millisec % 100);
 
   function displayTime(unit) {
     return unit < 10 ? "0" + unit : unit
   };
 
-  return displayTime(h) + ":" + displayTime(m) + ":" + displayTime(s);
+  return displayTime(h) + ":" + displayTime(m) + ":" + displayTime(s) + "." + displayTime(ms);
 }
 
 var inputTime = 0;
@@ -29,9 +30,9 @@ var startTimer = function() {
   hideButton();
 
   return (tInterval = setInterval(function() {
-    inputTime++;
-    stopwatch.innerHTML = secondsToHms(inputTime);
-  }, 1000)); 
+    inputTime = inputTime + 1;
+    stopwatch.innerHTML = millisecondsToHms(inputTime);
+  }, 10)); 
 };
 
 var pauseTimer = function() {
@@ -55,7 +56,7 @@ var resetTimer = function() {
   running = false;
   hideButton();
   inputTime = 0;
-  stopwatch.innerHTML = secondsToHms(inputTime)
+  stopwatch.innerHTML = millisecondsToHms(inputTime)
   start.innerHTML = "Start"
   return clearInterval(tInterval);
 }
