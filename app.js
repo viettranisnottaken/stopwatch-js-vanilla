@@ -8,11 +8,14 @@ var start = document.getElementById("start");
 var pause = document.getElementById("pause");
 var reset = document.getElementById("reset");
 
-var secondsToHms = function(millisec) {
-  millisec = Number(millisec);
-  var h = Math.floor(millisec / 3600);
-  var m = Math.floor(millisec % 3600 / 60);
-  var s = Math.floor(millisec % 3600 % 60);
+var secondsToHms = function(sec) {
+  sec = Number(sec);
+  // var h = Math.floor(millisec / 3600);
+  // var m = Math.floor(millisec % 3600 / 60);
+  // var s = Math.floor(millisec % 3600 % 60)
+  var s = Math.floor(sec % 60);
+  var m = Math.floor(sec / 60 % 60);
+  var h = Math.floor(sec / 3600)
 
   function displayTime(unit) {
     return unit < 10 ? "0" + unit : unit
